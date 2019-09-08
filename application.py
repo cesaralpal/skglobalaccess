@@ -13,7 +13,7 @@ parser = reqparse.RequestParser()
 
 class HelloWorld(Resource):
     def get(self):
-        return {'mensaje': 'la cagas morro'}
+        return {'mensaje': 'Bienveido a Global Data Access'}
 
 class sigFoxPost(Resource):
     def post(self):
