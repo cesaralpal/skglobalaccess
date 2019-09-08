@@ -28,7 +28,7 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
-        return {"la temperatura es"+temperatura}
+        return {'mensaje':("la temperatura es"+temperatura)}
 
 class sigFoxPostGet(Resource):
     def post(self):
@@ -48,6 +48,6 @@ api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
 
-if __name__ == '__application__':
+if __name__ == '__main__':
     app.run(debug=True)
 
