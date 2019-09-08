@@ -18,9 +18,11 @@ class sigFoxPost(Resource):
 
 class sigFoxGet(Resource):
     def get(self):
-        parser.add_argument('clave', type=str)
+        parser.add_argument('id', type=str)
+        parser.add_argument('time', type=str)
+        parser.add_argument('data', type=str)
         args = parser.parse_args()
-        return { 'echo':args['clave']}
+        return { 'echo':args['data']}
 
 class sigFoxPostGet(Resource):
     def post(self):
@@ -39,6 +41,6 @@ api.add_resource(sigFoxPost,'/sigFoxPost')
 api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 
-if __name__ == '__main__':
+if __name__ == '__application__':
     app.run(debug=True)
 
