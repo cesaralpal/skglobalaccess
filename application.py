@@ -2,8 +2,6 @@ from flask import Flask
 import time
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
-import azure.cosmos.cosmos_client as cosmos_client
-import json
 
 app = Flask(__name__)
 api = Api(app)
