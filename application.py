@@ -26,6 +26,7 @@ class sigFoxGet(Resource):
         bytes.fromhex(args['data']).decode('utf-8')
         temperatura
         return { 'echo':args['data']}
+        
 class Temperatura(Resource):
     def get(self):
         return {temperatura}
@@ -48,6 +49,6 @@ api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
 
-if __name__ == '__application__':
+if __name__ == '__main__':
     app.run(debug=True)
 
