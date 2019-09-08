@@ -46,7 +46,7 @@ api.add_resource(HelloWorld, '/')
 api.add_resource(sigFoxPost,'/sigFoxPost')
 api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
-api.add_resource(temperatura,'/temp')
+api.add_resource(Temperatura,'/temp')
 
 if __name__ == '__application__':
     app.run(debug=True)
