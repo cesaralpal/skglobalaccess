@@ -1,10 +1,14 @@
 from flask import Flask
+import time
+from datetime import datetime
 from flask_restful import Resource, Api, reqparse
+import azure.cosmos.cosmos_client as cosmos_client
+import json
 
 app = Flask(__name__)
 api = Api(app)
 
-temperatura = "null"
+temperaturas = []
 parser = reqparse.RequestParser()
 
 class HelloWorld(Resource):
@@ -20,15 +24,31 @@ class sigFoxPost(Resource):
 class sigFoxGet(Resource):
     def get(self):
         parser.add_argument('id', type=str)
-        parser.add_argument('time', type=str)
+        parser.add_argument('time', type=int)
         parser.add_argument('data', type=str)
         args = parser.parse_args()
+        global device
+        global temperatura 
+        global fecha
+        global temperaturas
+        fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
         temperatura = bytes.fromhex(args['data']).decode('utf-8')
+        device = args['id']
+        temperatura_actual = {
+            'id':device,
+            'temperatura':temperatura,
+            'fecha':fecha
+        }
+        temperaturas.append(temperatura_actual)
+        print("La temperatura es"+ temperatura)
+        print("La fecha es" + fecha)
+        print("Dispositivo" + device)
         return { 'echo':args['data']}
 
 class Temperatura(Resource):
     def get(self):
-        return {'mensaje':("la temperatura es"+temperatura)}
+        
+        return temperaturas
 
 class sigFoxPostGet(Resource):
     def post(self):
@@ -49,5 +69,5 @@ api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='localhost',port=5000)
 
