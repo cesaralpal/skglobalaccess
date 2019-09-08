@@ -4,7 +4,7 @@ from flask_restful import Resource, Api, reqparse
 app = Flask(__name__)
 api = Api(app)
 
-temperatura = none
+temperatura = "no hay un valor"
 parser = reqparse.RequestParser()
 
 class HelloWorld(Resource):
@@ -26,7 +26,7 @@ class sigFoxGet(Resource):
         bytes.fromhex(args['data']).decode('utf-8')
         temperatura
         return { 'echo':args['data']}
-        
+
 class Temperatura(Resource):
     def get(self):
         return {temperatura}
@@ -49,6 +49,6 @@ api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
 
-if __name__ == '__main__':
+if __name__ == '__application__':
     app.run(debug=True)
 
