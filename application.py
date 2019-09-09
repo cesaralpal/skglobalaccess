@@ -26,7 +26,7 @@ class sigFoxPostDownlink(Resource):
         parser.add_argument('deviceId', type=str)
         parser.add_argument('data',type=str)
         args = parser.parse_args()
-        return { 'echoPost':args['data']}
+        return 204
 
 
 class sigFoxGet(Resource):
@@ -55,7 +55,6 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
-        
         return temperaturas
 
 class sigFoxPostGet(Resource):
