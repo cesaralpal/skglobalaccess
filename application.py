@@ -2,6 +2,7 @@ from flask import Flask
 import time
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
+from sigfoxapi import Sigfox
 
 app = Flask(__name__)
 api = Api(app)
@@ -18,6 +19,15 @@ class sigFoxPost(Resource):
             parser.add_argument('clave', type=str)
             args = parser.parse_args()
             return { 'echo':args['clave']}
+
+
+class sigFoxPostDownlink(Resource):
+    def post(self):
+        parser.add_argument('deviceId', type=str)
+        parser.add_argument('data',type=str)
+        args = parser.parse_args()
+        return { 'echoPost':args['data']}
+
 
 class sigFoxGet(Resource):
     def get(self):
@@ -65,6 +75,7 @@ api.add_resource(sigFoxPost,'/sigFoxPost')
 api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
+api.add_resource(sigFoxPostDownlink,'/downlink')
 
 if __name__ == '__main__':
     app.run(debug=True,host='localhost',port=5000)
