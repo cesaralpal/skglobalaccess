@@ -3,13 +3,17 @@ import time
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
 from sigfoxapi import Sigfox
+import json
+import binascii
 
 app = Flask(__name__)
 api = Api(app)
 
 temperaturas = []
 parser = reqparse.RequestParser()
+deviceId = "4D5C76"
 
+password = "2017" + "0000" # MUST be 8 bytes long (Sigfox downlink - https://backend.sigfox.com/apidocs/callback)
 class HelloWorld(Resource):
     def get(self):
         return {'mensaje': 'Bienveido a Global Data Access'}
@@ -23,10 +27,16 @@ class sigFoxPost(Resource):
 
 class sigFoxPostDownlink(Resource):
     def post(self):
+        global password
         parser.add_argument('deviceId', type=str)
-        parser.add_argument('data',type=str)
-        args = parser.parse_args()
-        return 204
+        parser.add_argument('data', type=str)
+        parser.add_argument('time', type=int)
+
+        #args = parser.parse_args()
+        bytesPassword = str.encode(password)
+        hexPassword = str(binascii.hexlify(bytesPassword), 'ASCII')
+
+        return json.dumps({deviceId : { "downlinkData" : hexPassword}})
 
 
 class sigFoxGet(Resource):
