@@ -46,6 +46,8 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
+        global temperaturas
+        print(temperaturas)
         return temperaturas
 
 class sigFoxPostGet(Resource):
