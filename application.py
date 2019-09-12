@@ -2,14 +2,12 @@ from flask import Flask
 import time
 from datetime import datetime
 from dateutil import *
-from flask_restful import Resource, Api, reqparse, request
+from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
 api = Api(app)
 
 temperaturas = []
-temperaturasColombia = []
-temperaturasSeimalsa = []
 
 parser = reqparse.RequestParser()
 
@@ -24,9 +22,6 @@ class sigFoxPost(Resource):
             parser.add_argument('clave', type=str)
             args = parser.parse_args()
             return { 'echo':args['clave']}
-
-
-
 
 class sigFoxGet(Resource):
     def get(self):
