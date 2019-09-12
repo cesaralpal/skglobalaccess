@@ -40,15 +40,13 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-
+        
         return { 'echo':temperaturas}
-
 
 
 class Temperatura(Resource):
     def get(self):
-        lista = temperaturas
-        return lista
+        return temperaturas
 
 class sigFoxPostGet(Resource):
     def post(self):
