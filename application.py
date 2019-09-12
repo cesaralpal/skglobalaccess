@@ -1,7 +1,6 @@
 from flask import Flask
 import time
 from datetime import datetime
-from dateutil import *
 from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
@@ -12,7 +11,6 @@ temperaturas = []
 parser = reqparse.RequestParser()
 
 
-password = "2017" + "0000" # MUST be 8 bytes long (Sigfox downlink - https://backend.sigfox.com/apidocs/callback)
 class HelloWorld(Resource):
     def get(self):
         return {'mensaje': 'Bienvenido a Global Data Access'}
@@ -42,9 +40,6 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-        print("La temperatura es"+ temperatura)
-        print("La fecha es" + fecha)
-        print("Dispositivo" + device)
         return { 'echo':args['data']}
 
 
