@@ -6,9 +6,9 @@ from flask_restful import Resource, Api, reqparse
 app = Flask(__name__)
 api = Api(app)
 
-temperaturas = []
 
 parser = reqparse.RequestParser()
+temperaturas = []
 
 
 class HelloWorld(Resource):
@@ -40,7 +40,7 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-        return { 'echo':args['data']}
+        return { 'echo':temperatura}
 
 
 
