@@ -17,7 +17,7 @@ parser = reqparse.RequestParser()
 password = "2017" + "0000" # MUST be 8 bytes long (Sigfox downlink - https://backend.sigfox.com/apidocs/callback)
 class HelloWorld(Resource):
     def get(self):
-        return {'mensaje': 'Bienveido a Global Data Access'}
+        return {'mensaje': 'Bienvenido a Global Data Access'}
 
 class sigFoxPost(Resource):
     def post(self):
