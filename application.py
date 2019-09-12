@@ -8,7 +8,7 @@ api = Api(app)
 
 
 parser = reqparse.RequestParser()
-temperaturas = []
+temperaturas:list = []
 
 
 class HelloWorld(Resource):
