@@ -1,8 +1,8 @@
 from flask import Flask
 import time
 from datetime import datetime
+from dateutil import *
 from flask_restful import Resource, Api, reqparse, request
-from sigfoxapi import Sigfox
 
 app = Flask(__name__)
 api = Api(app)
@@ -53,29 +53,6 @@ class sigFoxGet(Resource):
         return { 'echo':args['data']}
 
 
-class sigFoxGetColombia(Resource):
-    def get(self):
-        parser.add_argument('id', type=str)
-        parser.add_argument('time', type=float)
-        parser.add_argument('data', type=str)
-        args = parser.parse_args()
-        global device
-        global temperatura 
-        global fecha
-        global temperaturas
-        fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
-        temperatura = bytes.fromhex(args['data']).decode('utf-8')
-        device = args['id']
-        temperatura_actual = {
-            'id':device,
-            'temperatura':temperatura,
-            'fecha':fecha
-        }
-        temperaturas.append(temperatura_actual)
-        print("La temperatura es"+ temperatura)
-        print("La fecha es" + fecha)
-        print("Dispositivo" + device)
-        return { 'echo':args['data']}        
 
 class Temperatura(Resource):
     def get(self):
