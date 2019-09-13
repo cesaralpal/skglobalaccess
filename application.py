@@ -8,9 +8,10 @@ import binascii
 import struct 
 from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
-
+import gc
 app = Flask(__name__)
 api = Api(app)
+gc.disable
 
 temperaturas = list()
 parser = reqparse.RequestParser()
@@ -55,7 +56,6 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
-        global temperaturas
         return temperaturas
 
 class sigFoxPostGet(Resource):
