@@ -6,17 +6,18 @@ import atexit
 import random
 import binascii
 import struct 
+from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
 
 app = Flask(__name__)
 api = Api(app)
 
-_temperaturas = []
+temperaturas = list()
 parser = reqparse.RequestParser()
 
 
 
-def lee_temperaturas():
+def lee_temperaturas(lista):
     return lista
 
 class HelloWorld(Resource):
@@ -35,7 +36,7 @@ class sigFoxGet(Resource):
         parser.add_argument('time', type=int)
         parser.add_argument('data', type=str)
         args = parser.parse_args()
-        global _temperaturas
+        global temperaturas
         fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
         temperatura = bytes.fromhex(args['data']).decode('utf-8')
         device = args['id']
@@ -44,18 +45,18 @@ class sigFoxGet(Resource):
             'temperatura':temperatura,
             'fecha':fecha
         }
-        _temperaturas.append(temperatura_actual)
+        temperaturas.append(temperatura_actual)
         
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
         
-        return { 'echo':_temperaturas}
+        return { 'echo':temperaturas}
 
 class Temperatura(Resource):
     def get(self):
-        global _temperaturas
-        return _temperaturas
+        global temperaturas
+        return temperaturas
 
 class sigFoxPostGet(Resource):
     def post(self):
@@ -76,7 +77,7 @@ class sigFoxPostGet(Resource):
             'temperatura':temperatura,
             'fecha':fecha
         }
-        temperaturas.append(temperatura_actual)
+   
 
         return { 'echoPost':args['clave']}
 
