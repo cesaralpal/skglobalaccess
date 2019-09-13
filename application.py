@@ -1,11 +1,6 @@
 from flask import Flask
 import time
 from datetime import datetime
-import os
-import atexit
-import random
-import binascii
-import struct 
 from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
 import gc
@@ -37,7 +32,6 @@ class sigFoxGet(Resource):
         parser.add_argument('time', type=int)
         parser.add_argument('data', type=str)
         args = parser.parse_args()
-        global temperaturas
         fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
         temperatura = bytes.fromhex(args['data']).decode('utf-8')
         device = args['id']
