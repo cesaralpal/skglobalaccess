@@ -4,11 +4,12 @@ from datetime import datetime
 from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
 import gc
+import azure.functions as func
 app = Flask(__name__)
 api = Api(app)
 gc.disable
 
-temperaturas = None
+temperaturas = []
 parser = reqparse.RequestParser()
 
 
@@ -50,6 +51,7 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
+        
         return temperaturas
 
 class sigFoxPostGet(Resource):
