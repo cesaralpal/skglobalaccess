@@ -4,18 +4,17 @@ from datetime import datetime
 from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
 import gc
-import azure.functions as func
 app = Flask(__name__)
 api = Api(app)
 gc.disable
 
-temperaturas = []
 parser = reqparse.RequestParser()
 
 
 
 def lee_temperaturas(lista):
     return lista
+temperaturas = []
 
 class HelloWorld(Resource):
     def get(self):
