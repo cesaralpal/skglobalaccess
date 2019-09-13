@@ -1,19 +1,27 @@
 from flask import Flask
 import time
 from datetime import datetime
-from flask_restful import Resource, Api, reqparse
+import os
+import atexit
+import random
+import binascii
+import struct 
+from flask_restful import Resource, Api, reqparse,request
 
 app = Flask(__name__)
 api = Api(app)
 
-
+temperaturas = []
 parser = reqparse.RequestParser()
-temperaturas:list = []
 
+
+
+def lee_temperaturas():
+    return temperaturas
 
 class HelloWorld(Resource):
     def get(self):
-        return {'mensaje': 'Bienvenido a Global Data Access'}
+        return {'mensaje': 'Bienveido a Global Data Access'}
 
 class sigFoxPost(Resource):
     def post(self):
@@ -39,14 +47,16 @@ class sigFoxGet(Resource):
             'temperatura':temperatura,
             'fecha':fecha
         }
+        temperaturas == temperaturas
         temperaturas.append(temperatura_actual)
-        
-        return { 'echo':temperaturas}
-
+        print("La temperatura es"+ temperatura)
+        print("La fecha es" + fecha)
+        print("Dispositivo" + device)
+        return { 'echo':args['data']}
 
 class Temperatura(Resource):
-    def get(self):
-        return temperaturas
+    def get(self):      
+        return lee_temperaturas()
 
 class sigFoxPostGet(Resource):
     def post(self):
@@ -60,6 +70,7 @@ class sigFoxPostGet(Resource):
         return { 'echoGet':args['clave']}
 
 
+
 api.add_resource(HelloWorld, '/')
 api.add_resource(sigFoxPost,'/sigFoxPost')
 api.add_resource(sigFoxGet,'/sigFoxGet')
@@ -68,4 +79,3 @@ api.add_resource(Temperatura,'/temp')
 
 if __name__ == '__main__':
     app.run(debug=True,host='localhost',port=5000)
-
