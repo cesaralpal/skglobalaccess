@@ -11,13 +11,13 @@ from flask_restful import Resource, Api, reqparse,request
 app = Flask(__name__)
 api = Api(app)
 
-global temperaturas = []
+temperaturas = []
 parser = reqparse.RequestParser()
 
 
 
-def lee_temperaturas():
-    return temperaturas
+def lee_temperaturas(lista):
+    return lista
 
 class HelloWorld(Resource):
     def get(self):
@@ -47,8 +47,9 @@ class sigFoxGet(Resource):
             'temperatura':temperatura,
             'fecha':fecha
         }
-        temperaturas == temperaturas
         temperaturas.append(temperatura_actual)
+        lee_temperaturas(temperaturas)
+        lista = temperaturas
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
@@ -56,7 +57,7 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):      
-        return lee_temperaturas()
+        return temperaturas
 
 class sigFoxPostGet(Resource):
     def post(self):
