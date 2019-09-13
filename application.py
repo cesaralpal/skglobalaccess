@@ -11,7 +11,7 @@ from flask_restful import Resource, Api, reqparse,request
 app = Flask(__name__)
 api = Api(app)
 
-temperaturas = []
+global temperaturas = []
 parser = reqparse.RequestParser()
 
 
