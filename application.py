@@ -16,7 +16,7 @@ parser = reqparse.RequestParser()
 
 
 
-def lee_temperaturas(lista):
+def lee_temperaturas():
     return lista
 
 class HelloWorld(Resource):
@@ -48,15 +48,15 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-        lee_temperaturas(temperaturas)
-        lista = temperaturas
+        
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
         return { 'echo':args['data']}
 
 class Temperatura(Resource):
-    def get(self):      
+    def get(self):
+        global temperaturas
         return temperaturas
 
 class sigFoxPostGet(Resource):
