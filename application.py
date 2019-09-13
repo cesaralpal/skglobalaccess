@@ -8,7 +8,7 @@ app = Flask(__name__)
 api = Api(app)
 gc.disable
 
-temperaturas = list()
+temperaturas = None
 parser = reqparse.RequestParser()
 
 
