@@ -11,7 +11,7 @@ from flask_restful import Resource, Api, reqparse,request
 app = Flask(__name__)
 api = Api(app)
 
-temperaturas = []
+_temperaturas = []
 parser = reqparse.RequestParser()
 
 
@@ -35,7 +35,7 @@ class sigFoxGet(Resource):
         parser.add_argument('time', type=int)
         parser.add_argument('data', type=str)
         args = parser.parse_args()
-        global temperaturas
+        global _temperaturas
         fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
         temperatura = bytes.fromhex(args['data']).decode('utf-8')
         device = args['id']
@@ -44,17 +44,18 @@ class sigFoxGet(Resource):
             'temperatura':temperatura,
             'fecha':fecha
         }
-        temperaturas == temperaturas.append(temperatura_actual)
+        _temperaturas.append(temperatura_actual)
         
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
-        return { 'echo':temperaturas}
+        
+        return { 'echo':_temperaturas}
 
 class Temperatura(Resource):
     def get(self):
-        global temperaturas
-        return temperaturas
+        global _temperaturas
+        return _temperaturas
 
 class sigFoxPostGet(Resource):
     def post(self):
