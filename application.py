@@ -35,6 +35,34 @@ class sigFoxGet(Resource):
         parser.add_argument('time', type=int)
         parser.add_argument('data', type=str)
         args = parser.parse_args()
+        global temperaturas
+        fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
+        temperatura = bytes.fromhex(args['data']).decode('utf-8')
+        device = args['id']
+        temperatura_actual = {
+            'id':device,
+            'temperatura':temperatura,
+            'fecha':fecha
+        }
+        temperaturas == temperaturas.append(temperatura_actual)
+        
+        print("La temperatura es"+ temperatura)
+        print("La fecha es" + fecha)
+        print("Dispositivo" + device)
+        return { 'echo':temperaturas}
+
+class Temperatura(Resource):
+    def get(self):
+        global temperaturas
+        return temperaturas
+
+class sigFoxPostGet(Resource):
+    def post(self):
+        parser.add_argument('id', type=str)
+        parser.add_argument('time', type=int)
+        parser.add_argument('data', type=str)
+        args = parser.parse_args()
+
         global device
         global temperatura 
         global fecha
@@ -48,27 +76,11 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-        
-        print("La temperatura es"+ temperatura)
-        print("La fecha es" + fecha)
-        print("Dispositivo" + device)
-        return { 'echo':args['data']}
 
-class Temperatura(Resource):
-    def get(self):
-        global temperaturas
-        return temperaturas
-
-class sigFoxPostGet(Resource):
-    def post(self):
-        parser.add_argument('clave', type=str)
-        args = parser.parse_args()
         return { 'echoPost':args['clave']}
 
     def get(self):
-        parser.add_argument('clave', type=str)
-        args = parser.parse_args()
-        return { 'echoGet':args['clave']}
+        return temperaturas
 
 
 
