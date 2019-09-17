@@ -36,6 +36,7 @@ class sigFoxGet(Resource):
         fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
         temperatura = bytes.fromhex(args['data']).decode('utf-8')
         device = args['id']
+        global temperaturas
         temperatura_actual = {
             'id':device,
             'temperatura':temperatura,
@@ -53,38 +54,13 @@ class Temperatura(Resource):
         global temperaturas
         return temperaturas
 
-class sigFoxPostGet(Resource):
-    def post(self):
-        parser.add_argument('id', type=str)
-        parser.add_argument('time', type=int)
-        parser.add_argument('data', type=str)
-        args = parser.parse_args()
 
-        global device
-        global temperatura 
-        global fecha
-        global temperaturas
-        fecha = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(args['time']))
-        temperatura = bytes.fromhex(args['data']).decode('utf-8')
-        device = args['id']
-        temperatura_actual = {
-            'id':device,
-            'temperatura':temperatura,
-            'fecha':fecha
-        }
-   
-
-        return { 'echoPost':args['clave']}
-
-    def get(self):
-        return temperaturas
 
 
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(sigFoxPost,'/sigFoxPost')
 api.add_resource(sigFoxGet,'/sigFoxGet')
-api.add_resource(sigFoxPostGet,'/sigFoxPostGet')
 api.add_resource(Temperatura,'/temp')
 
 if __name__ == '__main__':
