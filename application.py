@@ -1,12 +1,10 @@
 from flask import Flask
 import time
 from datetime import datetime
-from multiprocessing import Pool
 from flask_restful import Resource, Api, reqparse,request
 import gc
 app = Flask(__name__)
 api = Api(app)
-gc.disable
 
 parser = reqparse.RequestParser()
 
@@ -43,6 +41,7 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
+
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
@@ -64,4 +63,5 @@ api.add_resource(sigFoxGet,'/sigFoxGet')
 api.add_resource(Temperatura,'/temp')
 
 if __name__ == '__main__':
-    app.run(debug=True,host='localhost',port=5000)
+    app.run(debug=True)
+
