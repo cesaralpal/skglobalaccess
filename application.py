@@ -10,11 +10,12 @@ gc.disable
 
 parser = reqparse.RequestParser()
 
+temperaturas = []
 
 
 def lee_temperaturas(lista):
     return lista
-temperaturas = []
+
 
 class HelloWorld(Resource):
     def get(self):
@@ -41,7 +42,6 @@ class sigFoxGet(Resource):
             'fecha':fecha
         }
         temperaturas.append(temperatura_actual)
-        
         print("La temperatura es"+ temperatura)
         print("La fecha es" + fecha)
         print("Dispositivo" + device)
@@ -50,7 +50,7 @@ class sigFoxGet(Resource):
 
 class Temperatura(Resource):
     def get(self):
-        
+        global temperaturas
         return temperaturas
 
 class sigFoxPostGet(Resource):
